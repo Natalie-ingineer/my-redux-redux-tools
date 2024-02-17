@@ -17,7 +17,7 @@ export const localeReducer = localeSlice.reducer;
 
 // export const changeLang = (newLang) => {
 //   return {
-//     type: "locale/changeLang",
+//     type: "locale/changeLang" ,
 //     payload: newLang,
 //   };
 // };

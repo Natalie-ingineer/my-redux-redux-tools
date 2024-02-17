@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import { persistReducer } from "redux-persist";
 const balanceSlice = createSlice({
   name: "balance",
   initialState: {
@@ -17,7 +18,18 @@ const balanceSlice = createSlice({
 
 export const { deposit, withdraw } = balanceSlice.actions;
 
-export const balanceReducer = balanceSlice.reducer;
+const persistBalanceConfig = {
+  key: "balance",
+  storage,
+  whiteList: ["value"],
+};
+
+export const balanceReducer = persistReducer(
+  persistBalanceConfig,
+  balanceSlice.reducer
+);
+
+// export const balanceReducer = balanceSlice.reducer;
 
 // const initialState = {
 //   value: 50,
