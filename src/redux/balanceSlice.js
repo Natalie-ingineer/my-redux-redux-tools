@@ -1,36 +1,82 @@
-export const deposit = (value) => {
-  return {
-    type: "balance/deposit",
-    payload: value,
-  };
-};
+import { createSlice } from "@reduxjs/toolkit";
 
-export const withdraw = (value) => {
-  return {
-    type: "balance/withdraw",
-    payload: value,
-  };
-};
+const balanceSlice = createSlice({
+  name: "balance",
+  initialState: {
+    value: 50,
+  },
+  reducers: {
+    deposit: (state, action) => {
+      state.value += action.payload;
+    },
+    withdraw: (state, action) => {
+      state.value -= action.payload;
+    },
+  },
+});
 
-const balanceInitialState = {
-  value: 50,
-};
+export const { deposit, withdraw } = balanceSlice.actions;
 
-export const balanceReducer = (state = balanceInitialState, action) => {
-  switch (action.type) {
-    case "balance/deposit":
-      return {
-        ...state,
-        value: state.value + action.payload,
-      };
+export const balanceReducer = balanceSlice.reducer;
 
-    case "balance/withdraw":
-      return {
-        ...state,
-        value: state.value - action.payload,
-      };
+// const initialState = {
+//   value: 50,
+// };
 
-    default:
-      return state;
-  }
-};
+// export const deposit = (value) => {
+//   return {
+//     type: ,
+//     payload: value,
+//   };
+// };
+
+// export const deposit = createAction("balance/deposit");
+//  deposit(25);
+
+// export const withdraw = createAction("balance/withdraw");
+
+// -------------------------------------
+// {type: 'balance/withdraw', payload: {…}}
+// export const withdraw = createAction("balance/withdraw", (x) => {
+//   return {
+//     payload: {
+//       value: x,
+//     },
+//   };
+// });
+// ----------------------------------------
+// export const withdraw = (value) => {
+//   return {
+//     type: ,
+//     payload: value,
+//   };
+// };
+
+// export const balanceReducer = createReducer(initialState, (builder) =>
+//   builder
+//     .addCase(deposit, (state, action) => {
+//       state.value += action.payload;
+//     })
+//     .addCase(withdraw, (state, action) => {
+//       state.value -= action.payload;
+//     })
+// );
+
+// export const balanceReducer = (state = balanceInitialState, action) => {
+//   switch (action.type) {
+//     case "balance/deposit":
+//       return {
+//         ...state,
+//         value: state.value + action.payload,
+//       };
+
+//     case "balance/withdraw":
+//       return {
+//         ...state,
+//         value: state.value - action.payload,
+//       };
+
+//     default:
+//       return state;
+//   }
+// };
